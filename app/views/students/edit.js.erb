@@ -1,0 +1,4 @@
+
+$('body').find('#edit_student_modal').remove();
+$('body').append('<%= j (render "partials/edit_student_modal") %>');
+$('#edit_student_modal').modal('show');

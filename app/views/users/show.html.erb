@@ -1,0 +1,182 @@
+<div class="header">
+  <h1>tailwebs.</h1>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a> <%= button_to "Logout", session_path(@current_user), method: :delete, class: "logout-link" %></a>
+  </div>
+</div>
+<div class="table-container">
+  <% if @user.students.count != 0 %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Subject</th>
+          <th>Mark</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.students.each do |student| %>
+          <tr>
+            <td><span class="avatar"><%= student.name[0].upcase %></span> <%= student.name %></td>
+            <td><%= student.subject %></td>
+            <td><%= student.marks %></td>
+            <td>
+              <div class="dropdown">
+                <button class="dropbtn">⋮</button>
+                <div class="dropdown-content">
+                  <%= link_to "Edit", edit_student_path(id: student.id), remote: true, class: "" %>
+                  <%= button_to "Delete", student_path(id: student.id), method: :delete, class: "logout-link" %>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <b>No student listed, click on Add to create students</b><br>
+    <br>
+  <% end %>
+  <%= link_to "Add", new_student_path(id: @user.id), remote: true, class: "add-button" %>
+</div>
+<style>
+  body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  }
+
+  .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .header h1 {
+  color: #e54b4b;
+  margin: 0;
+  }
+  .nav-links{
+  display: flex;
+  margin-right: 10px;
+  }
+
+  .nav-links a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  }
+
+  .table-container {
+  padding: 20px;
+  margin: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1000px;
+  }
+
+  table {
+  width: 100%;
+  margin-bottom: 40px;
+  background-color: white;
+
+  }
+
+
+  th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  }
+
+  th {
+  font-weight: bold;
+  }
+
+  tbody tr:hover {
+  background-color: #f1f1f1;
+  }
+
+  .avatar {
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin-right: 10px;
+  }
+
+  .dropdown {
+  position: relative;
+  display: inline-block;
+  }
+
+  .dropbtn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  }
+
+  .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 100px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  }
+
+  .dropdown-content a {
+  color: black;
+  padding: 8px 12px;
+  text-decoration: none;
+  display: block;
+  }
+
+  .dropdown-content a:hover {
+  background-color: #f1f1f1;
+  }
+
+  .dropdown:hover .dropdown-content {
+  display: block;
+  }
+
+  .add-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 50px;
+  margin-top: 5rem;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  }
+
+  .add-button:hover {
+  background-color: #333;
+  }
+
+  .logout-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    display: inline;
+  }
+</style>

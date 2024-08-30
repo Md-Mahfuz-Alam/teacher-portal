@@ -1,0 +1,90 @@
+<div class="login-container">
+  <h1>tailwebs.</h1>
+  <div class="login-form">
+    <%= form_with url: sessions_path do |form| %>
+      <div class="form-group">
+        <%= form.label :username, 'Username',class: 'required' %>
+        <%= form.text_field :username, placeholder: "enter your user name", required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :password, 'Password',class: 'required' %>
+        <%= form.password_field :password, placeholder: "********", required: true %>
+      </div>
+      <%= link_to 'Forgot Password?', '#', class: 'forgot-password' %>
+      <%= form.submit "Login", class: "login-button" %>
+    <% end %>
+  </div>
+</div>
+<style>
+  body {
+   background-color: #f0f0f0;
+   font-family: Arial, sans-serif;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+   margin: 0;
+  }
+  h1{
+     text-align: center;
+  }
+  .login-form {
+   background-color: white;
+   padding: 5rem;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   text-align: center;
+   width: 550px;
+  }
+
+  h1 {
+   color: #e54b4b;
+   font-size: 24px;
+   margin-bottom: 20px;
+  }
+
+  .login-form .form-group {
+   margin-bottom: 15px;
+  }
+
+  .login-form label {
+   display: block;
+   text-align: left;
+   font-weight: bold;
+   margin-bottom: 5px;
+  }
+
+  .login-form input[type="text"],
+  .login-form input[type="password"] {
+   width: 100%;
+   padding: 10px;
+   margin-top: 5px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+  }
+
+  .forgot-password {
+   display: block;
+   text-align: right;
+   margin-top: 10px;
+   font-size: 12px;
+   color: #007bff;
+   text-decoration: none;
+  }
+
+  .forgot-password:hover {
+   text-decoration: underline;
+  }
+
+  .login-button {
+   padding: 0.6rem 3rem;
+   background-color: #333;
+   color: white;
+   border: none;
+   cursor: pointer;
+  }
+
+  .login-button:hover {
+   background-color: #555;
+  }
+</style>
