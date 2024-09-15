@@ -12,26 +12,38 @@ class StudentsController < ApplicationController
 
   def update
     @student = Student.find(params[:id])
-    if @student.update(student_params)
-      redirect_to user_path(@current_user), notice: 'Student was successfully updated.'
+    if current_user == @student.user_id
+      if @student.update(student_params)
+        redirect_to user_path(@current_user), notice: 'Student was successfully updated.'
+      else
+        render :edit
+      end  
     else
-      render :edit
-    end    
+      redirect_to user_path(@current_user), notice: 'You are not authorized .'
+    end  
   end
 
   def create_edit
-    @student = Student.find_by(name: params[:student][:name], subject: params[:student][:subject])
-    if @student
-      @student.marks += params[:student][:marks].to_i
+    @student = Student.find_or_create_by(name: params[:student][:name])
+    if @student.new_record?
+      @student.user_id = @current_user.id
       @student.save
-      redirect_to user_path(@current_user), notice: 'Student was successfully edited.'
-    else
-      @student = Student.new(student_params)
-      @student.user_id = params[:id]
-      @student.save
-      redirect_to user_path(@current_user), notice: 'Student was successfully created.'
     end
+    @student_detail = @student.student_details.find_or_initialize_by(subject: params[:student][:subject])
+  
+    if @student_detail.persisted?
+      @student_detail.marks += params[:student][:marks].to_i
+    else
+      @student_detail.marks = params[:student][:marks]
+      @student_detail.subject = params[:student][:subject]
+    end
+  
+    @student_detail.student_id = @student.id
+    @student_detail.save
+  
+    redirect_to user_path(@current_user), notice: "Student has been saved"
   end
+  
 
   def destroy
     @student = Student.find(params[:id])

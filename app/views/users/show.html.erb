@@ -6,7 +6,7 @@
   </div>
 </div>
 <div class="table-container">
-  <% if @user.students.count != 0 %>
+  <% if @students.count != 0 %>
     <table>
       <thead>
         <tr>
@@ -17,11 +17,11 @@
         </tr>
       </thead>
       <tbody>
-        <% @user.students.each do |student| %>
+        <% @students.each do |student| %>
           <tr>
             <td><span class="avatar"><%= student.name[0].upcase %></span> <%= student.name %></td>
-            <td><%= student.subject %></td>
-            <td><%= student.marks %></td>
+            <td></td>
+            <td></td>
             <td>
               <div class="dropdown">
                 <button class="dropbtn">⋮</button>

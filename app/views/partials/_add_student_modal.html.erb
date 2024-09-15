@@ -5,7 +5,7 @@
         <h5 class="modal-title">Add Student </h5>
       </div>
       <div class="modal-body">
-        <%= form_with model: @student, url: create_edit_student_path(params[:id]), method: :put, remote: true do |form| %>
+        <%= form_with model: @student, url: create_edit_student_path(@current_user.id), method: :put, remote: true do |form| %>
           <div class="form-group my-3">
             <%= form.label :name, 'Name ' %>
             <%= form.text_field :name, class: "form-control", placeholder: "enter your name" %>
